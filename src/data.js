@@ -7,8 +7,8 @@ for (let i=1; i<=50; i++) {
     about: 'A very long description of the person',
     height: 172,
     dob: new Date(),
-    single: true,
-    sex: 'M', // M = Male, F = Female, N = Not Disclosed
+    active: true,
+    sex: 'M', // M = Male, F = Female, U = Not Disclosed
     friendsId: []
   })
 }

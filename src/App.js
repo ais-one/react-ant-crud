@@ -1,11 +1,12 @@
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
-import { Table, Input, Button, Icon, Form, DatePicker } from 'antd' // Popconfirm
+import { Table, Input, InputNumber, Switch, Button, Radio, Select, Icon, Form, DatePicker } from 'antd' // Popconfirm
 
 import { find, findOne } from './data' // update, insert, remove
 
 import './App.css'
 
+const { Option } = Select
 const { TextArea } = Input
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
       name: 'id',
       type: 'input',
       value: '',
-      hidden: false,
-      readonly: false,
+      hidden: 'add',
+      readonly: 'all',
       validation: null, // validation function
       props: {
         type: 'text',
@@ -34,32 +35,41 @@ function App() {
       }
     },
     {
-      label: 'About',
       name: 'about',
       type: 'textarea', // text subtype
       value: '',
       validation: null, // validation function
+      props: {
+        placeholder: 'About'  
+      }
     },
     {
-      label: 'Height',
       name: 'height',
       type: 'number', // text subtype
       value: 0,
       validation: null, // validation function
+      props: {
+        placeholder: 'Height'  
+      }
     },    
     {
-      label: 'Birthdate', // date, time, date & time
       name: 'dob',
       type: 'date', // text subtype
       value: new Date(),
-      validation: null // validation function
+      validation: null, // validation function
+      props: {
+        placeholder: 'Birthdate'  
+      }
     },
     {
-      label: 'Single',
-      name: 'single',
-      type: 'bool',
+      label: 'Active',
+      name: 'active',
+      type: 'switch',
       value: false,
-      validation: null
+      validation: null,
+      props: {
+        placeholder: 'Active'  
+      }
     },
     {
       label: 'Sex',
@@ -71,7 +81,11 @@ function App() {
         { value: 'M', label: 'Male' },
         { value: 'F', label: 'Female' },
         { value: 'U', label: 'Not Specified' }
-      ]
+      ],
+      props: {
+        placeholder: 'Sex',
+        mode: 'default'
+      }
     },
     {
       label: 'Friends',
@@ -84,8 +98,12 @@ function App() {
         { value: '2', label: 'Friend 2' },
         { value: '3', label: 'Friend 3' }
       ],
-      hidden: true,
-      readonly: true
+      props: {
+        placeholder: 'Friends',
+        mode: 'multiple'
+      },
+      // hidden: 'all',
+      // readonly: 'all'
     }
 
     // drag and drop
@@ -100,10 +118,7 @@ function App() {
       const page = _pagination.current
       // const offset = (page -1 ) * _pagination.pageSize
       const {data} = await find({ page, limit: _pagination.pageSize })
-      // data = {
-      //   results: [],
-      //   totals: ?
-      // }
+      // data = { results: [], totals: 0 }
       if (data.results) {
         setTableData(data.results)
         setPagination({ ..._pagination, total: data.total })
@@ -141,9 +156,9 @@ function App() {
     // if data
     const _formItems = formItems.map(item => ({
       ...item,
-      value: id ? obj[item.name] : item.value
-      // set readonly
-      // set hidden
+      value: id ? obj[item.name] : item.value,
+      hidden: (item.hidden && item.hidden === 'add' && !id) || (item.hidden && item.hidden === 'edit' && id) || (item.hidden && item.hidden === 'all'),
+      readonly: (item.readonly && item.readonly === 'add' && !id) || (item.readonly && item.readonly === 'edit' && id) || (item.readonly && item.readonly === 'all')
     }))
     setFormData(_formItems)
   }
@@ -236,36 +251,79 @@ function App() {
               return ''
             }
             else if (item.type==='input') return (
-              <Form.Item key={item.name}>
+              <Form.Item key={item.name} label={item.label}>
                 <Input
                   {...item.props}
                   // placeholder={item.label}
                   // validateStatus={'error'}
                   // help={'Please Enter'}
+                  disabled={item.readonly}
                   value={item.value}
                   onChange={(e) => changeValue(item.name, e.target.value)}
                 />
               </Form.Item>
             )
             else if (item.type==='textarea') return (
-              <Form.Item key={item.name}>
+              <Form.Item key={item.name} label={item.label}>
                 <TextArea
+                  {...item.props}
                   disabled={item.readonly}
-                  placeholder={item.label}
                   value={item.value}
                   onChange={(e) => changeValue(item.name, e.target.value)}
                 />
               </Form.Item>
             )
-            else if (item.type==='date') return (
-              <Form.Item key={item.name}>
-                <DatePicker
+            else if (item.type==='number') return (
+              <Form.Item key={item.name} label={item.label}>
+                <InputNumber
+                  {...item.props}
                   disabled={item.readonly}
-                  placeholder={item.label}
+                  value={item.value}
+                  onChange={(v) => changeValue(item.name, v)}
+                />
+              </Form.Item>
+            )
+            else if (item.type==='switch') return (
+              <Form.Item key={item.name} label={item.label}>
+                <Switch
+                  {...item.props}
+                  disabled={item.readonly}
+                  checked={item.value}
+                  onChange={(v) => changeValue(item.name, v)}
+                /> 
+              </Form.Item>              
+            )
+            else if (item.type==='date') return (
+              <Form.Item key={item.name} label={item.label}>
+                <DatePicker
+                  {...item.props}
+                  disabled={item.readonly}
                   value={moment(item.value)}
                   onChange={(dateString) => changeValue(item.name, dateString)}
                 /> 
               </Form.Item>              
+            )
+            else if (item.type==='select') return (
+              <Form.Item key={item.name} label={item.label}>
+                <Select
+                  {...item.props}
+                  value={item.value}
+                  onChange={(a, b) => changeValue(item.name, a)}
+                >
+                  {item.options.map(option => <Option key={option.value} value={option.value}>{option.label}</Option>)}
+                </Select>
+              </Form.Item>
+            )
+            else if (item.type==='radio') return (
+              <Form.Item key={item.name} label={item.label}>
+                <Radio.Group
+                  {...item.props}
+                  onChange={(e) => console.log(e)}
+                  value={item.value}
+                >
+                  {item.options.map(option => <Radio key={option.value} value={option.value}>{option.label}</Radio>)}
+                </Radio.Group>
+              </Form.Item>
             )
             else return ''
           })}
