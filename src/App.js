@@ -121,7 +121,7 @@ function App() {
       // data = { results: [], totals: 0 }
       if (data.results) {
         setTableData(data.results)
-        setPagination({ ..._pagination, total: data.total })
+        setPagination({ ..._pagination, total: data.totals })
       } else {
         setTableData([])
         setPagination({ ..._pagination, total: 0 })
@@ -135,7 +135,7 @@ function App() {
   const [mode, setMode] = useState('view')
   const [tableData, setTableData] = useState([])
   const [formData, setFormData] = useState({})
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 2, total: 0, position: 'top' })
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 8, total: 0, position: 'top' })
 
   useEffect(() => {
     const doFetch = async () => {
@@ -224,6 +224,11 @@ function App() {
           loading={false}
           dataSource={tableData}
           columns={columns}
+          pagination={pagination}
+          onChange={(pagination, filter, sorter) => {
+            console.log('pages', pagination, filter, sorter)
+            getDatas(pagination)
+          }}
           onRow={(record, rowIndex) => {
             return {
               onClick: event => {

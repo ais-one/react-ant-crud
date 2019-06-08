@@ -23,7 +23,7 @@ const find = ({ page, limit }) => {
     else
       break
   }
-  return { data: { results, totals: results.length } }
+  return { data: { results, totals: data.length } }
 }
 
 const findOne = ({ id }) => {
