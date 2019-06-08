@@ -2,7 +2,7 @@ import moment from 'moment'
 import React, { useState, useEffect } from 'react'
 import { Table, Input, InputNumber, Switch, Button, Radio, Select, Icon, Form, DatePicker } from 'antd' // Popconfirm
 
-import { find, findOne } from './data' // update, insert, remove
+import { find, findOne, insert, update, remove } from './data'
 
 import './App.css'
 
@@ -10,7 +10,11 @@ const { Option } = Select
 const { TextArea } = Input
 
 function App() {
-  const formItems = [
+  const formFilters = [
+
+  ]
+
+  const formFields = [
     {
       name: 'id',
       type: 'input',
@@ -154,13 +158,13 @@ function App() {
       obj = data
     }
     // if data
-    const _formItems = formItems.map(item => ({
+    const _formFields = formFields.map(item => ({
       ...item,
       value: id ? obj[item.name] : item.value,
       hidden: (item.hidden && item.hidden === 'add' && !id) || (item.hidden && item.hidden === 'edit' && id) || (item.hidden && item.hidden === 'all'),
       readonly: (item.readonly && item.readonly === 'add' && !id) || (item.readonly && item.readonly === 'edit' && id) || (item.readonly && item.readonly === 'all')
     }))
-    setFormData(_formItems)
+    setFormData(_formFields)
   }
 
   // columns
@@ -173,22 +177,27 @@ function App() {
     {
       title: 'Action',
       key: 'action',
-      render: (record) => <div onClick={(e) => {
+      render: (record) => <button onClick={async (e) => {
         e.stopPropagation()
-        // delete record
-        console.log('Action Click 2', record, e)
-      }}>Delete</div>
+        // console.log('Action Click 2', record, e)
+        await remove({ id: record.id })
+        if (tableData.length === 1 && pagination.current > 1) {
+          pagination.current = pagination.current - 1 
+          // setPagination({ ...pagination, current: pagination.current - 1 })
+        }
+        await getDatas(pagination)
+      }}>Delete</button>
     },
   ]
 
-  const addData = async () => {
-    console.log('addData')
+  const openAddForm = async () => {
+    console.log('openAddForm')
     await getData()
     setMode('add')
   }
 
-  const editData = async (id) => {
-    console.log('editData')
+  const openEditForm = async (id) => {
+    console.log('openEditForm')
     await getData(id)
     setMode('edit')
   }
@@ -204,14 +213,42 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('submit', formData)
+
+    let id
+    let data = { }
+    for (let field of formData) {
+      if (field.name === 'id') {
+        id = field.value
+      } else {
+        data[field.name] = field.value
+      }
+    }
+
+    if (mode === 'add') {
+      console.log('insert', data)
+      await insert({ _data: data })
+    } else if (mode === 'edit') {
+      console.log('update', data)
+      await update ({ id, _data: data })
+    }
+    await getDatas(pagination)
     setMode('view')
   }
 
   return (
     <div className="App">
+      <>
+        <Form style={{ margin: 16 }}>
+          <p>FILTERS - TBD</p>
+          <Form.Item >
+            <Input
+            />
+          </Form.Item>
+        </Form>
+      </>
       {mode === 'view' ?
       <>
-        <Button onClick={addData} type="primary" style={{ margin: 4 }}>
+        <Button onClick={openAddForm} type="primary" style={{ margin: 4 }}>
           Add a row
         </Button>
         <Table
@@ -233,7 +270,7 @@ function App() {
             return {
               onClick: event => {
                 console.log('row click', record, rowIndex)
-                editData(record.id)
+                openEditForm(record.id)
               }, // click row
               onDoubleClick: event => {}, // double click row
               onContextMenu: event => {}, // right button click row

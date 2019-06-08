@@ -34,6 +34,7 @@ const findOne = ({ id }) => {
 
 const update = ({ id, _data }) => {
   const idx = data.findIndex(item => item.id === id)
+  // console.log('yuu', id, idx, data[idx])
   if (idx !== -1) {
     data[idx] = { id, ..._data }
   }
@@ -52,8 +53,8 @@ const insert = ({ _data }) => {
     id = data[data.length - 1].id + 1
   }
   data.push({
-    id,
-    ...data
+    ..._data,
+    id
   })
 }
 
