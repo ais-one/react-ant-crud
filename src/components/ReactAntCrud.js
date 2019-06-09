@@ -41,7 +41,7 @@ function ReactAndCrud(props) {
     formDataFilter[item.name] = item.value
   }
   
-  const getDatas = useCallback(async (_pagination, _filter, _sort) => {
+  const getRows = useCallback(async (_pagination, _filter, _sort) => {
     // loading state on
     console.log('formDataFilter', formDataFilter)
     // console.log('pagination', pagination)
@@ -64,30 +64,30 @@ function ReactAndCrud(props) {
 
   useEffect(() => {
     const doFetch = async () => {
-      console.log('ccc')
-      await getDatas(pagination)
+      // console.log('ccc', pagination.current, pagination.pageSize, pagination.total)
+      await getRows({ current: 1, pageSize: 8, total: 0, position: 'top' }) // instead of await getRows(pagination)
     }
     doFetch()
     // return
-  }, [getDatas]) // only on mount
+  }, [getRows]) // only on mount
   
 
-  const getData = async (id) => {
-    let obj
+  const getRow = async (id) => {
+    let result
     if (id) { // edit
       const {data} = await props.findOne({ id })
-      obj = data
+      result = data
     }
-    setFormDataCrud(obj)
+    setFormDataCrud(result)
   }
 
   const openAddForm = async () => {
-    await getData()
+    await getRow()
     setMode('add')
   }
 
   const openEditForm = async (id) => {
-    await getData(id)
+    await getRow(id)
     setMode('edit')
   }
 
@@ -104,7 +104,7 @@ function ReactAndCrud(props) {
         if (tableData.length === 1 && pagination.current > 1) {
           pagination.current = pagination.current - 1
         }
-        getDatas(pagination)
+        getRows(pagination)
       },
       okButtonProps: {
         type: 'danger'
@@ -127,7 +127,7 @@ function ReactAndCrud(props) {
     } else if (mode === 'edit') {
       await props.update({ id, _data: data })
     }
-    await getDatas(pagination)
+    await getRows(pagination)
     setMode('view')
   }
 
@@ -147,7 +147,7 @@ function ReactAndCrud(props) {
               icon="reload"
               onClick={async () => {
                 pagination.current = 1 
-                await getDatas(pagination)
+                await getRows(pagination)
               }}
             />
           </>}
@@ -165,7 +165,7 @@ function ReactAndCrud(props) {
           columns={columns}
           pagination={pagination}
           onChange={(pagination, filter, sorter) => {
-            getDatas(pagination)
+            getRows(pagination)
           }}
           // locale={{ emptyText: <Empty image={'asd'} description="" /> }}
           // onRow={(record, rowIndex) => ({
