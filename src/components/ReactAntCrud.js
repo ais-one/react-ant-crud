@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Table, Modal, Card, Button } from 'antd'
 import ReactAntCrudForm from './ReactAntCrudForm'
 
@@ -30,12 +30,22 @@ function ReactAndCrud(props) {
   const columns = [
     ...props.tableColumns
   ]
-  columns.unshift(actionColumn)
+  if (props.update || props.remove) columns.unshift(actionColumn)
 
-  const getDatas = async (_pagination, _filter, _sort) => {
+  let temp = { }
+  for (let item of props.formFieldsFilter) {
+    temp[item.name] = item.value
+  }
+
+  for (let item of props.formFieldsFilter) {
+    formDataFilter[item.name] = item.value
+  }
+  
+  const getDatas = useCallback(async (_pagination, _filter, _sort) => {
     // loading state on
     console.log('formDataFilter', formDataFilter)
-    if (!_pagination) _pagination = { ...pagination }
+    // console.log('pagination', pagination)
+    // if (!_pagination) _pagination = { ...pagination }
     try {
       const page = _pagination.current
       // const offset = (page -1 ) * _pagination.pageSize
@@ -48,25 +58,18 @@ function ReactAndCrud(props) {
         setTableData([])
         setPagination({ ..._pagination, total: 0 })
       }
-    } catch (e) {
-
-    }
+    } catch (e) { }
     // loading state off
-  }
+  }, [formDataFilter, props])
 
   useEffect(() => {
     const doFetch = async () => {
-      let temp = { }
-      for (let item of props.formFieldsFilter) {
-        temp[item.name] = item.value
-      }
-      setFormDataFilter(temp) // set here for filter, for crud it is set depending whether it is insert or update
-      // try catch
+      console.log('ccc')
       await getDatas(pagination)
     }
     doFetch()
     // return
-  }, []) // only on mount
+  }, [getDatas]) // only on mount
   
 
   const getData = async (id) => {
@@ -99,10 +102,9 @@ function ReactAndCrud(props) {
         // e.stopPropagation()
         await props.remove({ id })
         if (tableData.length === 1 && pagination.current > 1) {
-          pagination.current = pagination.current - 1 
-          // setPagination({ ...pagination, current: pagination.current - 1 })
+          pagination.current = pagination.current - 1
         }
-        await getDatas(pagination)
+        getDatas(pagination)
       },
       okButtonProps: {
         type: 'danger'
@@ -112,13 +114,10 @@ function ReactAndCrud(props) {
   }
 
   const updateFieldValueCrud = (name, value) => {
+    // setFormDataFilter({...formDataCrud, [name]: value })  
   }
 
   const updateFieldValueFilter = (name, value) => {
-    // let temp = { }
-    // for (let item of props.formFieldsFilter) {
-    //   temp[item.name] = item.value
-    // }
     setFormDataFilter({...formDataFilter, [name]: value })  
   }
 
@@ -166,7 +165,6 @@ function ReactAndCrud(props) {
           columns={columns}
           pagination={pagination}
           onChange={(pagination, filter, sorter) => {
-            console.log('pages', pagination, filter, sorter)
             getDatas(pagination)
           }}
           // locale={{ emptyText: <Empty image={'asd'} description="" /> }}

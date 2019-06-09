@@ -62,7 +62,7 @@ const formFieldsFilter = [
   {
     name: 'startDate',
     type: 'input',
-    value: '',
+    value: '2020-01-01',
     props: {
       type: 'text',
       placeholder: 'Start Date'
@@ -71,7 +71,7 @@ const formFieldsFilter = [
   {
     name: 'endDate',
     type: 'input',
-    value: '',
+    value: '2020-12-31',
     props: {
       type: 'text',
       placeholder: 'End Date'
