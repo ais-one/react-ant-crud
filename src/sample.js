@@ -60,9 +60,22 @@ const insert = ({ _data }) => {
 
 const formFieldsFilter = [
   {
-    name: 'id',
+    name: 'startDate',
     type: 'input',
-    value: ''
+    value: '',
+    props: {
+      type: 'text',
+      placeholder: 'Start Date'
+    }
+  },
+  {
+    name: 'endDate',
+    type: 'input',
+    value: '',
+    props: {
+      type: 'text',
+      placeholder: 'End Date'
+    }
   }
 ]
 
@@ -76,7 +89,7 @@ const formFieldsCrud = [
     validation: null, // validation function
     props: {
       type: 'text',
-      placeholder: 'ID'  
+      placeholder: 'ID'
     }
   },
   {
@@ -166,13 +179,21 @@ const formFieldsCrud = [
   // comments fields
 ]
 
+const tableColumns = [
+  { title: 'ID', dataIndex: 'id' },
+  { title: 'Name', dataIndex: 'name', width: '30%' },
+  { title: 'Birthdate', dataIndex: 'dob', render: (text, record) => {
+    return new Intl.DateTimeFormat('en-GB').format(text)
+  }}
+]
+
 export {
   find,
   findOne,
   update,
   insert,
   remove,
-  // columns,
+  tableColumns,
   formFieldsFilter,
   formFieldsCrud
 }

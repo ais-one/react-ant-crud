@@ -4,42 +4,37 @@ import ReactAntCrudForm from './ReactAntCrudForm'
 
 function ReactAndCrud(props) {
   // props:
-  // column, formFieldsFilter, formFieldsCrud
+  // columns, formFieldsFilter, formFieldsCrud, find, findOne, update, insert, delete, tableColumns
+
+  const [mode, setMode] = useState('view')
+  // const [loading, setLoading] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
+  const [tableData, setTableData] = useState([])
+  const [formDataCrud, setFormDataCrud] = useState({})
+  const [formDataFilter, setFormDataFilter] = useState({})
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 8, total: 0, position: 'top' })
+
+  const actionColumn = {
+    title: 'Action',
+    dataIndex: '',
+    key: 'action',
+    width: 108,
+    render: (text, record) => {
+      return (<>
+        {props.update ? <>{' '}<Button icon="edit" onClick={(e) => openEditForm(record.id)} ></Button></> : ''}
+        {props.remove ? <>{' '}<Button icon="delete" onClick={(e) => deleteRecord(record.id)} ></Button></> : ''}
+      </>)
+    }
+  }
 
   const columns = [
-    {
-      title: (<>
-        ID{' '}<Button icon="plus" onClick={() => openAddForm()} type="primary"></Button>
-      </>),
-      dataIndex: 'id',
-      render: (text, record) => 
-        (<>
-          {text}{' '}
-          <Button
-            type="primary"
-            // shape="circle"
-            icon="delete"
-            onClick={(e) => deleteRecord(record.id)}
-          >           
-          </Button>
-          {' '}
-          <Button
-            type="default"
-            // shape="circle"
-            icon="edit"
-            onClick={(e) => openEditForm(record.id)}
-          >           
-          </Button>
-        </>)
-    },
-    { title: 'Name', dataIndex: 'name', width: '30%' },
-    { title: 'Birthdate', dataIndex: 'dob', render: (text, record) => {
-      return new Intl.DateTimeFormat('en-GB').format(text)
-    }}
+    ...props.tableColumns
   ]
+  columns.unshift(actionColumn)
 
   const getDatas = async (_pagination, _filter, _sort) => {
     // loading state on
+    console.log('formDataFilter', formDataFilter)
     if (!_pagination) _pagination = { ...pagination }
     try {
       const page = _pagination.current
@@ -59,15 +54,13 @@ function ReactAndCrud(props) {
     // loading state off
   }
 
-  const [mode, setMode] = useState('view')
-  // const [loading, setLoading] = useState(false)
-  const [showFilter, setShowFilter] = useState(false)
-  const [tableData, setTableData] = useState([])
-  const [formData, setFormData] = useState({})
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 8, total: 0, position: 'top' })
-
   useEffect(() => {
     const doFetch = async () => {
+      let temp = { }
+      for (let item of props.formFieldsFilter) {
+        temp[item.name] = item.value
+      }
+      setFormDataFilter(temp) // set here for filter, for crud it is set depending whether it is insert or update
       // try catch
       await getDatas(pagination)
     }
@@ -82,7 +75,7 @@ function ReactAndCrud(props) {
       const {data} = await props.findOne({ id })
       obj = data
     }
-    setFormData(obj)
+    setFormDataCrud(obj)
   }
 
   const openAddForm = async () => {
@@ -118,6 +111,17 @@ function ReactAndCrud(props) {
     })
   }
 
+  const updateFieldValueCrud = (name, value) => {
+  }
+
+  const updateFieldValueFilter = (name, value) => {
+    // let temp = { }
+    // for (let item of props.formFieldsFilter) {
+    //   temp[item.name] = item.value
+    // }
+    setFormDataFilter({...formDataFilter, [name]: value })  
+  }
+
   const handleFormSubmit = async ({id, data}) => {
     if (mode === 'add') {
       await props.insert({ _data: data })
@@ -133,8 +137,10 @@ function ReactAndCrud(props) {
       {mode === 'view' ?
       <>
         <Card
+          bodyStyle={{padding: "0"}}
           title={<>
             Crud Title
+            {props.insert ? <>{' '}<Button icon="plus" onClick={() => openAddForm()} type="primary"></Button></> : ''}
           </>}
           extra={<>
             {props.formFieldsFilter.length ? <Button icon={showFilter ? 'up' : 'down'} onClick={() => setShowFilter(!showFilter)} /> : ''}
@@ -148,14 +154,11 @@ function ReactAndCrud(props) {
           </>}
         >
           {showFilter ? 
-            <ReactAntCrudForm formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={null} loading={false} handleFormSubmit={() => {}} />
-            : ''}
+            <ReactAntCrudForm formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={() => {}} updateFieldValue={updateFieldValueFilter} />
+          : ''}
         </Card>
         <Table
           style={{ margin: 4 }}
-          // locale={{ emptyText: <Empty image={'asd'} description="" /> }}
-          // components={components}
-          // rowClassName={() => 'editable-row'}
           rowKey="id"
           bordered
           loading={false}
@@ -166,24 +169,19 @@ function ReactAndCrud(props) {
             console.log('pages', pagination, filter, sorter)
             getDatas(pagination)
           }}
-          onRow={(record, rowIndex) => {
-            return {
-              onClick: e => {},
-              onDoubleClick: e => {},
-              onContextMenu: e => {},
-              onMouseEnter: e => {},
-              onMouseLeave: e => {}
-            }
-          }}
-          onHeaderRow={column => {
-            return {
-              onClick: () => {}, // click header row
-            }
-          }}
+          // locale={{ emptyText: <Empty image={'asd'} description="" /> }}
+          // onRow={(record, rowIndex) => ({
+          //   onClick: e => {},
+          //   onDoubleClick: e => {},
+          //   onContextMenu: e => {},
+          //   onMouseEnter: e => {},
+          //   onMouseLeave: e => {}
+          // })}
+          // onHeaderRow={column => ({ onClick: () => {} })}
         />
       </>
       :
-      <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formData} loading={false} handleFormSubmit={handleFormSubmit} />
+      <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
       }
     </div>
   )

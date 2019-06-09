@@ -7,7 +7,7 @@ const { TextArea } = Input
 
 function ReactAndCrudForm(props) {
   // props:
-  // mode, setMode, formFields, formData, loading, handleFormSubmit, formType
+  // mode, setMode, formFields, formData, loading, handleFormSubmit, formType, updateFieldValue
   const [formItem, setFormItem] = useState({})
 
   useEffect(() => {
@@ -29,33 +29,21 @@ function ReactAndCrudForm(props) {
         return o
       })
     )
+    props.updateFieldValue(name, value)
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('submit', formItem)
-
     let id
     let data = { }
     for (let item of formItem) {
-      if (item.name === 'id') {
+      if (item.name === 'id') { // TBD make id configurable
         id = item.value
       } else {
         data[item.name] = item.value
       }
     }
-
     props.handleFormSubmit({id, data})
-    /*
-    if (mode === 'add') {
-      console.log('insert', data)
-      await insert({ _data: data })
-    } else if (mode === 'edit') {
-      console.log('update', data)
-      await update ({ id, _data: data })
-    }
-    await getDatas(pagination)
-    setMode('view')
-    */
   }
 
   return (
