@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "./node_modules/.bin/babel src/ReactAntCrud --out-file index.js",
+    "build": "./node_modules/.bin/babel src/ReactAntCrud/ --out-dir src/lib/",
     "UNUSED-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -31,7 +31,7 @@
     ]
   },
   "description": "This is a basic React Ant Design Crud Component. My other one in VueJS called vue-crud-x has more features.",
-  "main": "index.js",
+  "main": "src/lib/index.js",
   "peerDependencies": {
     "antd": "^3.19.2",
     "moment": "^2.24.0",
