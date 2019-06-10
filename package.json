@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "./node_modules/.bin/babel src/ReactAntCrud --out-file index.js",
+    "UNUSED-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -29,5 +30,35 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This is a basic React Ant Design Crud Component. My other one in VueJS called vue-crud-x has more features.",
+  "main": "index.js",
+  "peerDependencies": {
+    "antd": "^3.19.2",
+    "moment": "^2.24.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ais-one/react-ant-crud.git"
+  },
+  "keywords": [
+    "react",
+    "ant",
+    "design",
+    "crud"
+  ],
+  "author": "Aaron Gong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ais-one/react-ant-crud/issues"
+  },
+  "homepage": "https://github.com/ais-one/react-ant-crud#readme"
 }
