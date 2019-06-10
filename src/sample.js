@@ -181,8 +181,8 @@ const formFieldsCrud = [
 
 const tableColumns = [
   { title: 'ID', dataIndex: 'id' },
-  { title: 'Name', dataIndex: 'name', width: '30%' },
-  { title: 'Birthdate', dataIndex: 'dob', render: (text, record) => {
+  { title: 'Name', dataIndex: 'name', width: '30%', sorter: true },
+  { title: 'Birthdate', dataIndex: 'dob', sorter: true, render: (text, record) => {
     return new Intl.DateTimeFormat('en-GB').format(text)
   }}
 ]
