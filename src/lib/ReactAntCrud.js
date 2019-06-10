@@ -1,9 +1,25 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _objectSpread3 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -11,60 +27,32 @@ var _antd = require("antd");
 
 var _ReactAntCrudForm = _interopRequireDefault(require("./ReactAntCrudForm"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function ReactAndCrud(props) {
   // props:
   // columns, formFieldsFilter, formFieldsCrud, find, findOne, update, insert, delete, tableColumns
   var _useState = (0, _react.useState)('view'),
-      _useState2 = _slicedToArray(_useState, 2),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       mode = _useState2[0],
       setMode = _useState2[1]; // const [loading, setLoading] = useState(false)
 
 
   var _useState3 = (0, _react.useState)(false),
-      _useState4 = _slicedToArray(_useState3, 2),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
       showFilter = _useState4[0],
       setShowFilter = _useState4[1];
 
   var _useState5 = (0, _react.useState)([]),
-      _useState6 = _slicedToArray(_useState5, 2),
+      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
       tableData = _useState6[0],
       setTableData = _useState6[1];
 
   var _useState7 = (0, _react.useState)({}),
-      _useState8 = _slicedToArray(_useState7, 2),
+      _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
       formDataCrud = _useState8[0],
       setFormDataCrud = _useState8[1];
 
   var _useState9 = (0, _react.useState)({}),
-      _useState10 = _slicedToArray(_useState9, 2),
+      _useState10 = (0, _slicedToArray2.default)(_useState9, 2),
       formDataFilter = _useState10[0],
       setFormDataFilter = _useState10[1];
 
@@ -74,12 +62,12 @@ function ReactAndCrud(props) {
     total: 0,
     position: 'top'
   }),
-      _useState12 = _slicedToArray(_useState11, 2),
+      _useState12 = (0, _slicedToArray2.default)(_useState11, 2),
       pagination = _useState12[0],
       setPagination = _useState12[1];
 
   var _useState13 = (0, _react.useState)({}),
-      _useState14 = _slicedToArray(_useState13, 2),
+      _useState14 = (0, _slicedToArray2.default)(_useState13, 2),
       sorter = _useState14[0],
       setSorter = _useState14[1]; // field, order
 
@@ -103,9 +91,7 @@ function ReactAndCrud(props) {
       })) : '');
     }
   };
-
-  var columns = _toConsumableArray(props.tableColumns);
-
+  var columns = (0, _toConsumableArray2.default)(props.tableColumns);
   if (props.update || props.remove) columns.unshift(actionColumn);
   var temp = {};
   var _iteratorNormalCompletion = true;
@@ -159,12 +145,12 @@ function ReactAndCrud(props) {
   var getRows = (0, _react.useCallback)(
   /*#__PURE__*/
   function () {
-    var _ref = _asyncToGenerator(
+    var _ref = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee(_pagination, _filters, _sorter) {
+    _regenerator.default.mark(function _callee(_pagination, _filters, _sorter) {
       var page, _ref2, data;
 
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return _regenerator.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -189,17 +175,17 @@ function ReactAndCrud(props) {
               // data = { results: [], totals: 0 }
               if (data.results) {
                 setTableData(data.results);
-                setPagination(_objectSpread({}, _pagination, {
+                setPagination((0, _objectSpread3.default)({}, _pagination, {
                   total: data.totals
                 }));
               } else {
                 setTableData([]);
-                setPagination(_objectSpread({}, _pagination, {
+                setPagination((0, _objectSpread3.default)({}, _pagination, {
                   total: 0
                 }));
               }
 
-              setSorter(_objectSpread({}, _sorter));
+              setSorter((0, _objectSpread3.default)({}, _sorter));
               _context.next = 14;
               break;
 
@@ -223,10 +209,10 @@ function ReactAndCrud(props) {
     var doFetch =
     /*#__PURE__*/
     function () {
-      var _ref3 = _asyncToGenerator(
+      var _ref3 = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      _regenerator.default.mark(function _callee2() {
+        return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -259,12 +245,12 @@ function ReactAndCrud(props) {
   var getRow =
   /*#__PURE__*/
   function () {
-    var _ref4 = _asyncToGenerator(
+    var _ref4 = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee3(id) {
+    _regenerator.default.mark(function _callee3(id) {
       var result, _ref5, data;
 
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      return _regenerator.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
@@ -302,10 +288,10 @@ function ReactAndCrud(props) {
   var openAddForm =
   /*#__PURE__*/
   function () {
-    var _ref6 = _asyncToGenerator(
+    var _ref6 = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee4() {
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+    _regenerator.default.mark(function _callee4() {
+      return _regenerator.default.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
@@ -331,10 +317,10 @@ function ReactAndCrud(props) {
   var openEditForm =
   /*#__PURE__*/
   function () {
-    var _ref7 = _asyncToGenerator(
+    var _ref7 = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee5(id) {
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+    _regenerator.default.mark(function _callee5(id) {
+      return _regenerator.default.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
@@ -360,10 +346,10 @@ function ReactAndCrud(props) {
   var deleteRecord =
   /*#__PURE__*/
   function () {
-    var _ref8 = _asyncToGenerator(
+    var _ref8 = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee7(id) {
-      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+    _regenerator.default.mark(function _callee7(id) {
+      return _regenerator.default.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
@@ -376,10 +362,10 @@ function ReactAndCrud(props) {
                   return console.log('cancel');
                 },
                 onOk: function () {
-                  var _onOk = _asyncToGenerator(
+                  var _onOk = (0, _asyncToGenerator2.default)(
                   /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee6() {
-                    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                  _regenerator.default.mark(function _callee6() {
+                    return _regenerator.default.wrap(function _callee6$(_context6) {
                       while (1) {
                         switch (_context6.prev = _context6.next) {
                           case 0:
@@ -432,17 +418,17 @@ function ReactAndCrud(props) {
   };
 
   var updateFieldValueFilter = function updateFieldValueFilter(name, value) {
-    setFormDataFilter(_objectSpread({}, formDataFilter, _defineProperty({}, name, value)));
+    setFormDataFilter((0, _objectSpread3.default)({}, formDataFilter, (0, _defineProperty2.default)({}, name, value)));
   };
 
   var handleFormSubmit =
   /*#__PURE__*/
   function () {
-    var _ref10 = _asyncToGenerator(
+    var _ref10 = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee8(_ref9) {
+    _regenerator.default.mark(function _callee8(_ref9) {
       var id, data;
-      return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      return _regenerator.default.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
@@ -524,10 +510,10 @@ function ReactAndCrud(props) {
       icon: "reload",
       onClick:
       /*#__PURE__*/
-      _asyncToGenerator(
+      (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee9() {
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      _regenerator.default.mark(function _callee9() {
+        return _regenerator.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
@@ -550,7 +536,7 @@ function ReactAndCrud(props) {
     formFields: props.formFieldsFilter,
     formData: formDataFilter,
     loading: false,
-    handleFormSubmit: function handleFormSubmit() {},
+    handleFormSubmit: handleFormSubmit,
     updateFieldValue: updateFieldValueFilter
   }) : ''), _react.default.createElement(_antd.Table, {
     style: {

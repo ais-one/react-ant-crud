@@ -126,7 +126,7 @@ function ReactAndCrud(props) {
     setFormDataFilter({...formDataFilter, [name]: value })  
   }
 
-  const handleFormSubmit = async ({id, data}) => {
+  const handleFormSubmit = async ({ id, data }) => {
     if (mode === 'add') {
       await props.insert({ _data: data })
     } else if (mode === 'edit') {
@@ -157,8 +157,8 @@ function ReactAndCrud(props) {
             />
           </>}
         >
-          {showFilter ? 
-            <ReactAntCrudForm formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={() => {}} updateFieldValue={updateFieldValueFilter} />
+          {showFilter ?
+            <ReactAntCrudForm formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueFilter} />
           : ''}
         </Card>
         <Table

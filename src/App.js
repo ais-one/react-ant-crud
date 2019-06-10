@@ -1,6 +1,7 @@
 import React from 'react'
 // import ReactAntCrud from './ReactAntCrud'
-import ReactAntCrud from './lib/index'
+// import ReactAntCrud from './lib/index'
+import ReactAntCrud from 'react-ant-crud'
 import './App.css'
 
 import * as sample from './sample'

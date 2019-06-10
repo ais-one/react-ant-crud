@@ -25,6 +25,18 @@ Refer to sample.js, for a more or less complete example of usage...
 npm run build
 ```
 
+
+## Test Package Locally
+
+```
+npm pack
+
+# before running next comment
+# 1. make sure version matches
+# 2. make sure you change the "name" property in package.json, and change it back after you fininsh with the command below
+npm i --no-save react-ant-crud-0.1.0.tgz
+```
+
 ## Notes
 
 How to make your own React Component and publish on NPM

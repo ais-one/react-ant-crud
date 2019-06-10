@@ -1,37 +1,29 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
 var _react = _interopRequireWildcard(require("react"));
 
 var _antd = require("antd");
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 // Popconfirm, Icon
 var Option = _antd.Select.Option;
@@ -41,7 +33,7 @@ function ReactAndCrudForm(props) {
   // props:
   // mode, setMode, formFields, formData, loading, handleFormSubmit, formType, updateFieldValue
   var _useState = (0, _react.useState)({}),
-      _useState2 = _slicedToArray(_useState, 2),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       formItem = _useState2[0],
       setFormItem = _useState2[1];
 
@@ -50,7 +42,7 @@ function ReactAndCrudForm(props) {
         formData = props.formData;
 
     var _formFields = formFields.map(function (item) {
-      return _objectSpread({}, item, {
+      return (0, _objectSpread2.default)({}, item, {
         value: formData ? formData[item.name] : item.value,
         hidden: item.hidden && item.hidden === 'add' && !formData || item.hidden && item.hidden === 'edit' && formData || item.hidden && item.hidden === 'all',
         readonly: item.readonly && item.readonly === 'add' && !formData || item.readonly && item.readonly === 'edit' && formData || item.readonly && item.readonly === 'all'
@@ -63,7 +55,7 @@ function ReactAndCrudForm(props) {
 
   var changeValue = function changeValue(name, value) {
     setFormItem(formItem.map(function (o) {
-      if (o.name === name) return _objectSpread({}, o, {
+      if (o.name === name) return (0, _objectSpread2.default)({}, o, {
         value: value
       });
       return o;
@@ -74,12 +66,12 @@ function ReactAndCrudForm(props) {
   var handleSubmit =
   /*#__PURE__*/
   function () {
-    var _ref = _asyncToGenerator(
+    var _ref = (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee(e) {
+    _regenerator.default.mark(function _callee(e) {
       var id, data, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, item;
 
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return _regenerator.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -167,7 +159,7 @@ function ReactAndCrudForm(props) {
     } else if (item.type === 'input') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.Input, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.Input, (0, _extends2.default)({}, item.props, {
       // placeholder={item.label}
       // validateStatus={'error'}
       // help={'Please Enter'}
@@ -179,7 +171,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'textarea') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(TextArea, _extends({}, item.props, {
+    }, _react.default.createElement(TextArea, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: item.value,
       onChange: function onChange(e) {
@@ -188,7 +180,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'number') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.InputNumber, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.InputNumber, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: item.value,
       onChange: function onChange(v) {
@@ -197,7 +189,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'switch') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.Switch, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.Switch, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       checked: item.value,
       onChange: function onChange(v) {
@@ -206,7 +198,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'date') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.DatePicker, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.DatePicker, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: (0, _moment.default)(item.value),
       onChange: function onChange(dateString) {
@@ -215,7 +207,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'select') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.Select, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.Select, (0, _extends2.default)({}, item.props, {
       value: item.value,
       onChange: function onChange(a, b) {
         return changeValue(item.name, a);
@@ -228,7 +220,7 @@ function ReactAndCrudForm(props) {
     })));else if (item.type === 'radio') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
       label: item.label
-    }, _react.default.createElement(_antd.Radio.Group, _extends({}, item.props, {
+    }, _react.default.createElement(_antd.Radio.Group, (0, _extends2.default)({}, item.props, {
       onChange: function onChange(e) {
         return console.log(e);
       },
