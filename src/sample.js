@@ -187,7 +187,10 @@ const tableColumns = [
   }}
 ]
 
+const title = 'CRUD Sample'
+
 export {
+  title,
   find,
   findOne,
   update,

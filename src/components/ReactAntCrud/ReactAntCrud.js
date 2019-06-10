@@ -136,18 +136,18 @@ function ReactAndCrud(props) {
     setMode('view')
   }
 
+  // use display none instead of ? to show / hide components... cause problems in the case of Table sorter
   return (
     <div className="Crud">
-      {mode === 'view' ?
-      <>
+      <div style={{ display: mode === 'view' ? 'block' : 'none' }}>
         <Card
           bodyStyle={{padding: "0"}}
           title={<>
-            Crud Title
+            {props.title || 'React Ant CRUD'}
             {props.insert ? <>{' '}<Button icon="plus" onClick={() => openAddForm()} type="primary"></Button></> : ''}
           </>}
           extra={<>
-            {props.formFieldsFilter.length ? <Button icon={showFilter ? 'up' : 'down'} onClick={() => setShowFilter(!showFilter)} /> : ''}
+            {props.formFieldsFilter.length ? <Button style={{ marginRight: 8 }} icon={showFilter ? 'up' : 'search'} onClick={() => setShowFilter(!showFilter)} /> : ''}
             <Button
               icon="reload"
               onClick={async () => {
@@ -162,7 +162,7 @@ function ReactAndCrud(props) {
           : ''}
         </Card>
         <Table
-          style={{ margin: 4 }}
+          style={{ margin: 8 }}
           rowKey="id"
           bordered
           loading={false}
@@ -183,10 +183,15 @@ function ReactAndCrud(props) {
           // })}
           // onHeaderRow={column => ({ onClick: () => {} })}
         />
-      </>
-      :
-      <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
-      }
+      </div>
+      <div style={{ display: mode !== 'view' ? 'block' : 'none' }}>
+        <Card
+          bodyStyle={{padding: 8}}
+          title={(mode === 'add' ? 'Add' : 'Update') + ' Record'}
+        >
+          <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
+        </Card>
+      </div>
     </div>
   )
 }
