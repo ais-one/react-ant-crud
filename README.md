@@ -1,3 +1,41 @@
+
+# React-Ant-Crud
+
+This is a simple React Crud component using Ant Design as the UI Framework
+
+## Try Out Example
+
+```
+npm i
+npm run start
+```
+
+## Using It In Your Own Project
+
+```
+npm i react-ant-crud
+import ReactAntCrud from 'react-ant-crud'
+```
+
+Refer to sample.js, for a more or less complete example of usage...
+
+## Building The Source
+
+```
+npm run build
+```
+
+## Notes
+
+How to make your own React Component and publish on NPM
+
+https://medium.com/recraftrelic/building-a-react-component-as-a-npm-module-18308d4ccde9
+
+
+
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,6 +104,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-
-1. sorter always destroyed when table disappear and then appear..., try to use css to hide and show instead? what about pagination?
