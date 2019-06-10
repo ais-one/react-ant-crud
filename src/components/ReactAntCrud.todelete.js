@@ -136,10 +136,10 @@ function ReactAndCrud(props) {
     setMode('view')
   }
 
-  // use display none instead of ? to show / hide components... cause problems in the case of Table sorter
   return (
     <div className="Crud">
-      <div style={{ display: mode === 'view' ? 'block' : 'none' }}>
+      {mode === 'view' ?
+      <>
         <Card
           bodyStyle={{padding: "0"}}
           title={<>
@@ -183,10 +183,10 @@ function ReactAndCrud(props) {
           // })}
           // onHeaderRow={column => ({ onClick: () => {} })}
         />
-      </div>
-      <div style={{ display: mode !== 'view' ? 'block' : 'none' }}>
-        <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
-      </div>
+      </>
+      :
+      <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
+      }
     </div>
   )
 }
