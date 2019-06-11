@@ -7,12 +7,12 @@ function ReactAndCrud(props) {
   // columns, formFieldsFilter, formFieldsCrud, find, findOne, update, insert, delete, tableColumns
 
   const [mode, setMode] = useState('view')
-  // const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
   const [tableData, setTableData] = useState([])
   const [formDataCrud, setFormDataCrud] = useState({})
   const [formDataFilter, setFormDataFilter] = useState({})
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 8, total: 0, position: 'top' })
+  const [pagination, setPagination] = useState({})
   const [sorter, setSorter] = useState({}) // field, order
 
   const actionColumn = {
@@ -45,14 +45,13 @@ function ReactAndCrud(props) {
   const getRows = useCallback(async (_pagination, _filters, _sorter) => {
     // loading state on
     // console.log('formDataFilter', formDataFilter)
-    // console.log('sorter', _sorter)
-    
+    console.log('sorter', _sorter)
     // console.log('pagination', pagination)
     // if (!_pagination) _pagination = { ...pagination }
     try {
       const page = _pagination.current
       // const offset = (page -1 ) * _pagination.pageSize
-      const {data} = await props.find({ page, limit: _pagination.pageSize })
+      const {data} = await props.find({ page, limit: _pagination.pageSize }, formDataFilter, _sorter)
       // data = { results: [], total: 0 }
       if (data.results) {
         setTableData(data.results)
@@ -70,20 +69,23 @@ function ReactAndCrud(props) {
     const doFetch = async () => {
       // console.log('useEffect')
       // console.log('ccc', pagination.current, pagination.pageSize, pagination.total)
-      await getRows({ current: 1, pageSize: 8, total: 0, position: 'top' }, null, {}) // instead of await getRows(pagination)
+      await getRows({ current: 1, pageSize: props.pageSize || 8, total: 0, position: props.position || 'top' }, null, {}) // instead of await getRows(pagination)
     }
     doFetch()
     // return
-  }, [getRows]) // only on mount
+  }, [getRows, props.pageSize, props.position]) // only on mount
   
 
   const getRow = async (id) => {
+    if (loading) return
+    setLoading(true)
     let result
     if (id) { // edit
       const {data} = await props.findOne({ id })
       result = data
     }
     setFormDataCrud(result)
+    setLoading(false)
   }
 
   const openAddForm = async () => {
@@ -105,11 +107,14 @@ function ReactAndCrud(props) {
       onCancel: () => console.log('cancel'),
       onOk: async () => {
         // e.stopPropagation()
+        if (loading) return
+        setLoading(true)
         await props.remove({ id })
         if (tableData.length === 1 && pagination.current > 1) {
           pagination.current = pagination.current - 1
         }
         getRows(pagination, null, sorter)
+        setLoading(false)
       },
       okButtonProps: {
         type: 'danger'
@@ -127,12 +132,15 @@ function ReactAndCrud(props) {
   }
 
   const handleFormSubmit = async ({ id, data }) => {
+    if (loading) return
+    setLoading(true)
     if (mode === 'add') {
       await props.insert({ _data: data })
     } else if (mode === 'edit') {
       await props.update({ id, _data: data })
     }
     await getRows(pagination, null, sorter)
+    setLoading(false)
     setMode('view')
   }
 
@@ -151,27 +159,33 @@ function ReactAndCrud(props) {
             <Button
               icon="reload"
               onClick={async () => {
-                pagination.current = 1 
+                pagination.current = 1
+                if (loading) return
+                setLoading(true)
                 await getRows(pagination, null, sorter)
+                setLoading(false)
               }}
             />
           </>}
         >
           {showFilter ?
-            <ReactAntCrudForm idName={props.idName} formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueFilter} />
+            <ReactAntCrudForm idName={props.idName} formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={loading} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueFilter} />
           : ''}
         </Card>
         <Table
           style={{ margin: 8 }}
           rowKey="id"
           bordered
-          loading={false}
+          loading={loading}
           dataSource={tableData}
           columns={columns}
           pagination={pagination}
           onChange={(pagination, filters, sorter) => {
             console.log('change table', sorter)
+            // if (loading) return
+            setLoading(true)
             getRows(pagination, filters, sorter)
+            setLoading(false)
           }}
           // locale={{ emptyText: <Empty image={'asd'} description="" /> }}
           // onRow={(record, rowIndex) => ({
@@ -189,7 +203,7 @@ function ReactAndCrud(props) {
           bodyStyle={{padding: 8}}
           title={(mode === 'add' ? 'Add' : 'Update') + ' Record'}
         >
-          <ReactAntCrudForm idName={props.idName} formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
+          <ReactAntCrudForm idName={props.idName} formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={loading} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
         </Card>
       </div>
     </div>

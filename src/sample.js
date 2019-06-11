@@ -1,7 +1,9 @@
-let data = []
-
 const title = 'CRUD Sample'
-const idName = 'id' // the name of the ID for you DB, it is _id for MongoDB
+const idName = 'id' // the name of the ID for your DB (example, for MongoDB it is _id)
+const pageSize = 7 // page size
+const position = 'both' // paginator location
+
+let data = []
 
 for (let i=1; i<=50; i++) {
   data.push({
@@ -87,8 +89,8 @@ const formFieldsCrud = [
     name: 'id',
     type: 'input',
     value: '',
-    hidden: 'add',
-    readonly: 'all',
+    hidden: 'add', // add, edit, all
+    readonly: 'all', // add, edit, all
     validation: null, // validation function
     props: {
       type: 'text',
@@ -96,7 +98,8 @@ const formFieldsCrud = [
     }
   },
   {
-    // label: 'Name',
+    label: 'Name',
+    colon: false,
     // validation: null, // validation function
     name: 'name',
     type: 'input',
@@ -107,6 +110,7 @@ const formFieldsCrud = [
     }
   },
   {
+    label: 'About',
     name: 'about',
     type: 'textarea', // text subtype
     value: '',
@@ -116,6 +120,8 @@ const formFieldsCrud = [
     }
   },
   {
+    label: 'Height',
+    colon: false,
     name: 'height',
     type: 'number', // text subtype
     value: 0,
@@ -193,6 +199,8 @@ const tableColumns = [
 export {
   title,
   idName,
+  pageSize,
+  position,
   find,
   findOne,
   update,

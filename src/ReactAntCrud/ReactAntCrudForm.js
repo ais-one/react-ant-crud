@@ -54,7 +54,7 @@ function ReactAndCrudForm(props) {
             return ''
           }
           else if (item.type==='input') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <Input
                 {...item.props}
                 // placeholder={item.label}
@@ -67,7 +67,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>
           )
           else if (item.type==='textarea') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <TextArea
                 {...item.props}
                 disabled={item.readonly}
@@ -77,7 +77,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>
           )
           else if (item.type==='number') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <InputNumber
                 {...item.props}
                 disabled={item.readonly}
@@ -87,7 +87,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>
           )
           else if (item.type==='switch') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <Switch
                 {...item.props}
                 disabled={item.readonly}
@@ -97,7 +97,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>              
           )
           else if (item.type==='date') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <DatePicker
                 {...item.props}
                 disabled={item.readonly}
@@ -107,7 +107,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>              
           )
           else if (item.type==='select') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <Select
                 {...item.props}
                 value={item.value}
@@ -118,7 +118,7 @@ function ReactAndCrudForm(props) {
             </Form.Item>
           )
           else if (item.type==='radio') return (
-            <Form.Item key={item.name} label={item.label}>
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
               <Radio.Group
                 {...item.props}
                 onChange={(e) => console.log(e)}
