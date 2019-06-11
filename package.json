@@ -1,6 +1,6 @@
 {
   "name": "react-ant-crud",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
     "antd": "^3.19.2",
     "moment": "^2.24.0",

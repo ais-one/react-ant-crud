@@ -53,10 +53,10 @@ function ReactAndCrud(props) {
       const page = _pagination.current
       // const offset = (page -1 ) * _pagination.pageSize
       const {data} = await props.find({ page, limit: _pagination.pageSize })
-      // data = { results: [], totals: 0 }
+      // data = { results: [], total: 0 }
       if (data.results) {
         setTableData(data.results)
-        setPagination({ ..._pagination, total: data.totals })
+        setPagination({ ..._pagination, total: data.total })
       } else {
         setTableData([])
         setPagination({ ..._pagination, total: 0 })
@@ -158,7 +158,7 @@ function ReactAndCrud(props) {
           </>}
         >
           {showFilter ?
-            <ReactAntCrudForm formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueFilter} />
+            <ReactAntCrudForm idName={props.idName} formType={'filter'} mode={mode} setMode={setMode} formFields={props.formFieldsFilter} formData={formDataFilter} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueFilter} />
           : ''}
         </Card>
         <Table
@@ -189,7 +189,7 @@ function ReactAndCrud(props) {
           bodyStyle={{padding: 8}}
           title={(mode === 'add' ? 'Add' : 'Update') + ' Record'}
         >
-          <ReactAntCrudForm formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
+          <ReactAntCrudForm idName={props.idName} formType={'crud'} mode={mode} setMode={setMode} formFields={props.formFieldsCrud} formData={formDataCrud} loading={false} handleFormSubmit={handleFormSubmit} updateFieldValue={updateFieldValueCrud} />
         </Card>
       </div>
     </div>

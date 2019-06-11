@@ -75,7 +75,7 @@ function ReactAndCrudForm(props) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              e.preventDefault(); // console.log('submit', formItem)
+              e.preventDefault(); // console.log('submit', props.idName, formItem)
 
               data = {};
               _iteratorNormalCompletion = true;
@@ -86,8 +86,7 @@ function ReactAndCrudForm(props) {
               for (_iterator = formItem[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 item = _step.value;
 
-                if (item.name === 'id') {
-                  // TBD make id configurable
+                if (item.name === props.idName) {
                   id = item.value;
                 } else {
                   data[item.name] = item.value;

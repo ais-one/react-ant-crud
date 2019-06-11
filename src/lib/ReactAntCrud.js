@@ -172,11 +172,11 @@ function ReactAndCrud(props) {
               _ref2 = _context.sent;
               data = _ref2.data;
 
-              // data = { results: [], totals: 0 }
+              // data = { results: [], total: 0 }
               if (data.results) {
                 setTableData(data.results);
                 setPagination((0, _objectSpread3.default)({}, _pagination, {
-                  total: data.totals
+                  total: data.total
                 }));
               } else {
                 setTableData([]);
@@ -530,6 +530,7 @@ function ReactAndCrud(props) {
       }))
     }))
   }, showFilter ? _react.default.createElement(_ReactAntCrudForm.default, {
+    idName: props.idName,
     formType: 'filter',
     mode: mode,
     setMode: setMode,
@@ -571,6 +572,7 @@ function ReactAndCrud(props) {
     },
     title: (mode === 'add' ? 'Add' : 'Update') + ' Record'
   }, _react.default.createElement(_ReactAntCrudForm.default, {
+    idName: props.idName,
     formType: 'crud',
     mode: mode,
     setMode: setMode,

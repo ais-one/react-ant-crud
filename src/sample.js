@@ -1,5 +1,8 @@
 let data = []
 
+const title = 'CRUD Sample'
+const idName = 'id' // the name of the ID for you DB, it is _id for MongoDB
+
 for (let i=1; i<=50; i++) {
   data.push({
     id: i,
@@ -23,7 +26,7 @@ const find = ({ page, limit }) => {
     else
       break
   }
-  return { data: { results, totals: data.length } }
+  return { data: { results, total: data.length } }
 }
 
 const findOne = ({ id }) => {
@@ -187,10 +190,9 @@ const tableColumns = [
   }}
 ]
 
-const title = 'CRUD Sample'
-
 export {
   title,
+  idName,
   find,
   findOne,
   update,

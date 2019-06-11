@@ -33,11 +33,11 @@ function ReactAndCrudForm(props) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // console.log('submit', formItem)
+    // console.log('submit', props.idName, formItem)
     let id
     let data = { }
     for (let item of formItem) {
-      if (item.name === 'id') { // TBD make id configurable
+      if (item.name === props.idName) {
         id = item.value
       } else {
         data[item.name] = item.value
