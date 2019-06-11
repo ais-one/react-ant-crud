@@ -3,6 +3,20 @@
 
 This is a simple React Crud component using Ant Design as the UI Framework
 
+Reduce boilerplate code. Hopefully it will be able to meet your use case...
+
+[![Screenshot](./screenshot0.png)](./screenshot0.png)
+
+Features
+ - page
+ - filter
+ - sort
+ - configure form inputs based on data type
+ - crud
+
+[![Screenshot](./screenshot1.png)](./screenshot1.png)
+
+
 ## Try Out Example
 
 ```
@@ -12,12 +26,36 @@ npm run start
 
 ## Using It In Your Own Project
 
+1. Installing it
 ```
 npm i react-ant-crud
-import ReactAntCrud from 'react-ant-crud'
 ```
 
 Refer to sample.js, for a more or less complete example of usage...
+
+2. Using it
+
+```
+import React from 'react'
+
+// IMPORT THE LIBRARY
+import ReactAntCrud from 'react-ant-crud'
+// IMPORT YOUR CONFIGURATION
+import * as sample from './sample'
+
+import './App.css'
+
+function App() {
+  return (
+    <div className="App">
+      <ReactAntCrud {...sample} />
+    </div>
+  )
+}
+
+export default App
+
+```
 
 ## Building The Source
 
