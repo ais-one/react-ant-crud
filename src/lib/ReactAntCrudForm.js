@@ -157,7 +157,8 @@ function ReactAndCrudForm(props) {
       return '';
     } else if (item.type === 'input') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.Input, (0, _extends2.default)({}, item.props, {
       // placeholder={item.label}
       // validateStatus={'error'}
@@ -169,7 +170,8 @@ function ReactAndCrudForm(props) {
       }
     })));else if (item.type === 'textarea') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(TextArea, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: item.value,
@@ -178,7 +180,8 @@ function ReactAndCrudForm(props) {
       }
     })));else if (item.type === 'number') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.InputNumber, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: item.value,
@@ -187,7 +190,8 @@ function ReactAndCrudForm(props) {
       }
     })));else if (item.type === 'switch') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.Switch, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       checked: item.value,
@@ -196,7 +200,8 @@ function ReactAndCrudForm(props) {
       }
     })));else if (item.type === 'date') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.DatePicker, (0, _extends2.default)({}, item.props, {
       disabled: item.readonly,
       value: (0, _moment.default)(item.value),
@@ -205,7 +210,8 @@ function ReactAndCrudForm(props) {
       }
     })));else if (item.type === 'select') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.Select, (0, _extends2.default)({}, item.props, {
       value: item.value,
       onChange: function onChange(a, b) {
@@ -218,7 +224,8 @@ function ReactAndCrudForm(props) {
       }, option.label);
     })));else if (item.type === 'radio') return _react.default.createElement(_antd.Form.Item, {
       key: item.name,
-      label: item.label
+      label: item.label,
+      colon: item.colon
     }, _react.default.createElement(_antd.Radio.Group, (0, _extends2.default)({}, item.props, {
       onChange: function onChange(e) {
         return console.log(e);

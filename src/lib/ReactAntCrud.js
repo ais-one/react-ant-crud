@@ -33,43 +33,42 @@ function ReactAndCrud(props) {
   var _useState = (0, _react.useState)('view'),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       mode = _useState2[0],
-      setMode = _useState2[1]; // const [loading, setLoading] = useState(false)
-
+      setMode = _useState2[1];
 
   var _useState3 = (0, _react.useState)(false),
       _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
-      showFilter = _useState4[0],
-      setShowFilter = _useState4[1];
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
-  var _useState5 = (0, _react.useState)([]),
+  var _useState5 = (0, _react.useState)(false),
       _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
-      tableData = _useState6[0],
-      setTableData = _useState6[1];
+      showFilter = _useState6[0],
+      setShowFilter = _useState6[1];
 
-  var _useState7 = (0, _react.useState)({}),
+  var _useState7 = (0, _react.useState)([]),
       _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
-      formDataCrud = _useState8[0],
-      setFormDataCrud = _useState8[1];
+      tableData = _useState8[0],
+      setTableData = _useState8[1];
 
   var _useState9 = (0, _react.useState)({}),
       _useState10 = (0, _slicedToArray2.default)(_useState9, 2),
-      formDataFilter = _useState10[0],
-      setFormDataFilter = _useState10[1];
+      formDataCrud = _useState10[0],
+      setFormDataCrud = _useState10[1];
 
-  var _useState11 = (0, _react.useState)({
-    current: 1,
-    pageSize: 8,
-    total: 0,
-    position: 'top'
-  }),
+  var _useState11 = (0, _react.useState)({}),
       _useState12 = (0, _slicedToArray2.default)(_useState11, 2),
-      pagination = _useState12[0],
-      setPagination = _useState12[1];
+      formDataFilter = _useState12[0],
+      setFormDataFilter = _useState12[1];
 
   var _useState13 = (0, _react.useState)({}),
       _useState14 = (0, _slicedToArray2.default)(_useState13, 2),
-      sorter = _useState14[0],
-      setSorter = _useState14[1]; // field, order
+      pagination = _useState14[0],
+      setPagination = _useState14[1];
+
+  var _useState15 = (0, _react.useState)({}),
+      _useState16 = (0, _slicedToArray2.default)(_useState15, 2),
+      sorter = _useState16[0],
+      setSorter = _useState16[1]; // field, order
 
 
   var actionColumn = {
@@ -155,20 +154,20 @@ function ReactAndCrud(props) {
           switch (_context.prev = _context.next) {
             case 0:
               // loading state on
-              console.log('formDataFilter', formDataFilter);
+              // console.log('formDataFilter', formDataFilter)
               console.log('sorter', _sorter); // console.log('pagination', pagination)
               // if (!_pagination) _pagination = { ...pagination }
 
-              _context.prev = 2;
+              _context.prev = 1;
               page = _pagination.current; // const offset = (page -1 ) * _pagination.pageSize
 
-              _context.next = 6;
+              _context.next = 5;
               return props.find({
                 page: page,
                 limit: _pagination.pageSize
-              });
+              }, formDataFilter, _sorter);
 
-            case 6:
+            case 5:
               _ref2 = _context.sent;
               data = _ref2.data;
 
@@ -186,19 +185,19 @@ function ReactAndCrud(props) {
               }
 
               setSorter((0, _objectSpread3.default)({}, _sorter));
-              _context.next = 14;
+              _context.next = 13;
               break;
 
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](2);
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](1);
 
-            case 14:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 12]]);
+      }, _callee, null, [[1, 11]]);
     }));
 
     return function (_x, _x2, _x3) {
@@ -216,17 +215,15 @@ function ReactAndCrud(props) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log('useEffect'); // console.log('ccc', pagination.current, pagination.pageSize, pagination.total)
-
-                _context2.next = 3;
+                _context2.next = 2;
                 return getRows({
                   current: 1,
-                  pageSize: 8,
+                  pageSize: props.pageSize || 8,
                   total: 0,
-                  position: 'top'
+                  position: props.position || 'top'
                 }, null, {});
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -240,7 +237,7 @@ function ReactAndCrud(props) {
     }();
 
     doFetch(); // return
-  }, [getRows]); // only on mount
+  }, [getRows, props.pageSize, props.position]); // only on mount
 
   var getRow =
   /*#__PURE__*/
@@ -254,25 +251,36 @@ function ReactAndCrud(props) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              if (!id) {
-                _context3.next = 6;
+              if (!loading) {
+                _context3.next = 2;
                 break;
               }
 
-              _context3.next = 3;
+              return _context3.abrupt("return");
+
+            case 2:
+              setLoading(true);
+
+              if (!id) {
+                _context3.next = 9;
+                break;
+              }
+
+              _context3.next = 6;
               return props.findOne({
                 id: id
               });
 
-            case 3:
+            case 6:
               _ref5 = _context3.sent;
               data = _ref5.data;
               result = data;
 
-            case 6:
+            case 9:
               setFormDataCrud(result);
+              setLoading(false);
 
-            case 7:
+            case 11:
             case "end":
               return _context3.stop();
           }
@@ -369,19 +377,29 @@ function ReactAndCrud(props) {
                       while (1) {
                         switch (_context6.prev = _context6.next) {
                           case 0:
-                            _context6.next = 2;
+                            if (!loading) {
+                              _context6.next = 2;
+                              break;
+                            }
+
+                            return _context6.abrupt("return");
+
+                          case 2:
+                            setLoading(true);
+                            _context6.next = 5;
                             return props.remove({
                               id: id
                             });
 
-                          case 2:
+                          case 5:
                             if (tableData.length === 1 && pagination.current > 1) {
                               pagination.current = pagination.current - 1;
                             }
 
                             getRows(pagination, null, sorter);
+                            setLoading(false);
 
-                          case 4:
+                          case 8:
                           case "end":
                             return _context6.stop();
                         }
@@ -434,40 +452,51 @@ function ReactAndCrud(props) {
             case 0:
               id = _ref9.id, data = _ref9.data;
 
-              if (!(mode === 'add')) {
-                _context8.next = 6;
+              if (!loading) {
+                _context8.next = 3;
                 break;
               }
 
-              _context8.next = 4;
-              return props.insert({
-                _data: data
-              });
+              return _context8.abrupt("return");
 
-            case 4:
-              _context8.next = 9;
-              break;
+            case 3:
+              setLoading(true);
 
-            case 6:
-              if (!(mode === 'edit')) {
+              if (!(mode === 'add')) {
                 _context8.next = 9;
                 break;
               }
 
-              _context8.next = 9;
+              _context8.next = 7;
+              return props.insert({
+                _data: data
+              });
+
+            case 7:
+              _context8.next = 12;
+              break;
+
+            case 9:
+              if (!(mode === 'edit')) {
+                _context8.next = 12;
+                break;
+              }
+
+              _context8.next = 12;
               return props.update({
                 id: id,
                 _data: data
               });
 
-            case 9:
-              _context8.next = 11;
+            case 12:
+              _context8.next = 14;
               return getRows(pagination, null, sorter);
 
-            case 11:
+            case 14:
+              setLoading(false);
               setMode('view');
 
-            case 12:
+            case 16:
             case "end":
               return _context8.stop();
           }
@@ -518,10 +547,23 @@ function ReactAndCrud(props) {
             switch (_context9.prev = _context9.next) {
               case 0:
                 pagination.current = 1;
-                _context9.next = 3;
-                return getRows(pagination, null, sorter);
+
+                if (!loading) {
+                  _context9.next = 3;
+                  break;
+                }
+
+                return _context9.abrupt("return");
 
               case 3:
+                setLoading(true);
+                _context9.next = 6;
+                return getRows(pagination, null, sorter);
+
+              case 6:
+                setLoading(false);
+
+              case 7:
               case "end":
                 return _context9.stop();
             }
@@ -536,7 +578,7 @@ function ReactAndCrud(props) {
     setMode: setMode,
     formFields: props.formFieldsFilter,
     formData: formDataFilter,
-    loading: false,
+    loading: loading,
     handleFormSubmit: handleFormSubmit,
     updateFieldValue: updateFieldValueFilter
   }) : ''), _react.default.createElement(_antd.Table, {
@@ -545,13 +587,16 @@ function ReactAndCrud(props) {
     },
     rowKey: "id",
     bordered: true,
-    loading: false,
+    loading: loading,
     dataSource: tableData,
     columns: columns,
     pagination: pagination,
     onChange: function onChange(pagination, filters, sorter) {
-      console.log('change table', sorter);
+      console.log('change table', sorter); // if (loading) return
+
+      setLoading(true);
       getRows(pagination, filters, sorter);
+      setLoading(false);
     } // locale={{ emptyText: <Empty image={'asd'} description="" /> }}
     // onRow={(record, rowIndex) => ({
     //   onClick: e => {},
@@ -578,7 +623,7 @@ function ReactAndCrud(props) {
     setMode: setMode,
     formFields: props.formFieldsCrud,
     formData: formDataCrud,
-    loading: false,
+    loading: loading,
     handleFormSubmit: handleFormSubmit,
     updateFieldValue: updateFieldValueCrud
   }))));
