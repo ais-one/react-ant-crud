@@ -44,8 +44,8 @@ function ReactAndCrud(props) {
   
   const getRows = useCallback(async (_pagination, _filters, _sorter) => {
     // loading state on
-    console.log('formDataFilter', formDataFilter)
-    console.log('sorter', _sorter)
+    // console.log('formDataFilter', formDataFilter)
+    // console.log('sorter', _sorter)
     
     // console.log('pagination', pagination)
     // if (!_pagination) _pagination = { ...pagination }
@@ -68,7 +68,7 @@ function ReactAndCrud(props) {
 
   useEffect(() => {
     const doFetch = async () => {
-      console.log('useEffect')
+      // console.log('useEffect')
       // console.log('ccc', pagination.current, pagination.pageSize, pagination.total)
       await getRows({ current: 1, pageSize: 8, total: 0, position: 'top' }, null, {}) // instead of await getRows(pagination)
     }
