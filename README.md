@@ -33,7 +33,7 @@ npm i react-ant-crud
 
 Refer to sample.js, for a more or less complete example of usage...
 
-2. Using it
+2. Using it (App.js)
 
 ```
 import React from 'react'
@@ -56,6 +56,19 @@ function App() {
 export default App
 
 ```
+
+## Configuring
+
+Refer to sample.js
+
+1. constants
+
+2. oprations - find, findOne, update, insert, remove
+
+3. form fields
+
+4. table columns
+
 
 ## Building The Source
 

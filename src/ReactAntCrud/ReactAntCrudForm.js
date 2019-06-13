@@ -1,6 +1,6 @@
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
-import { Spin, Form, Input, InputNumber, Switch, Button, Radio, Select, DatePicker } from 'antd' // Popconfirm, Icon
+import { Spin, Form, Input, InputNumber, Switch, Button, Radio, Select, DatePicker, TimePicker } from 'antd' // Popconfirm, Icon
 
 const { Option } = Select
 const { TextArea } = Input
@@ -104,6 +104,16 @@ function ReactAndCrudForm(props) {
                 value={moment(item.value)}
                 onChange={(dateString) => changeValue(item.name, dateString)}
               /> 
+            </Form.Item>              
+          )
+          else if (item.type==='time') return (
+            <Form.Item key={item.name} label={item.label} colon={item.colon}>
+              <TimePicker
+                {...item.props}
+                disabled={item.readonly}
+                value={moment(item.value)}
+                onChange={(timeString) => changeValue(item.name, timeString)}
+              />
             </Form.Item>              
           )
           else if (item.type==='select') return (

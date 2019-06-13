@@ -8,13 +8,15 @@ let data = []
 for (let i=1; i<=50; i++) {
   data.push({
     id: i,
-    name: 'Name ' + i,
-    about: 'A very long description of the person',
-    height: 172,
-    dob: new Date(),
-    active: true,
-    sex: 'M', // M = Male, F = Female, U = Not Disclosed
-    friendsId: []
+    name: 'Name ' + i, // Input
+    about: 'A very long description of the person', // Input.TextArea
+    height: 172, // InputNumber
+    dob: new Date(), // DatePicker
+    meetingTime: new Date(), // TimePicker
+    active: true, // Switch
+    sex: 'M', // M = Male, F = Female, U = Not Disclosed // Select
+    friendsId: [], // Select multiple
+    avatar: '' // File Upload - Work In Progress
   })
 }
 
@@ -137,6 +139,15 @@ const formFieldsCrud = [
     validation: null, // validation function
     props: {
       placeholder: 'Birthdate'  
+    }
+  },
+  {
+    name: 'meetingTime',
+    type: 'time', // text subtype
+    value: new Date(),
+    validation: null, // validation function
+    props: {
+      placeholder: 'Meeting Time'  
     }
   },
   {
