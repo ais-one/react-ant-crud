@@ -57,15 +57,36 @@ export default App
 
 ```
 
-## Configuring
+## Configuration
 
-Refer to sample.js
+Refer to the sample.js Config File
 
 1. constants
 
 2. oprations - find, findOne, update, insert, remove
 
 3. form fields
+
+Supported Ant Design Form Inputs
+- Input
+- Input.TextArea
+- Input Number
+- Select (single, multiple)
+- DatePicker
+- TimePicker
+- Switch
+- File Upload (work in progress)
+- Tree (under consideration)
+- Transfer (under consideration)
+- Slider (under consideration)
+
+Notes:
+  The following properties of Form Inputs are used by this library
+  - value
+  - onChange
+  For other properties
+  - should be ok to use, but be careful if it is a function
+  - be careful of event functions, may not work via the config file
 
 4. table columns
 
