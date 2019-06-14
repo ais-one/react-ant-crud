@@ -193,7 +193,17 @@ const formFieldsCrud = [
     },
     // hidden: 'all',
     // readonly: 'all'
-  }
+  },
+  {
+    label: 'Avatar',
+    colon: false,
+    name: 'avatar',
+    type: 'upload', // text subtype
+    value: '',
+    props: {
+      placeholder: 'Avatar'
+    }
+  },    
   // drag and drop
   // autocomplete
   // comments fields
