@@ -1,9 +1,11 @@
-
 # React-Ant-Crud
 
 This is a simple React Crud component using Ant Design as the UI Framework
 
 Reduce boilerplate code. Hopefully it will be able to meet your use case...
+
+Its VueJS cousin is at https://github.com/ais-one/vue-ant-crud
+
 
 [![Screenshot](./screenshot0.png)](./screenshot0.png)
 
@@ -16,11 +18,17 @@ Features
 
 [![Screenshot](./screenshot1.png)](./screenshot1.png)
 
+## Must Do
+
+Install the packages
+
+```
+npm i
+```
 
 ## Try Out Example
 
 ```
-npm i
 npm run start
 ```
 

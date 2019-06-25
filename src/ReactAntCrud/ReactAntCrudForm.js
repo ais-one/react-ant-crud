@@ -112,7 +112,7 @@ function ReactAndCrudForm(props) {
     }))
     // console.log(formFields)
     setFormItem(_formFields)
-  }, [props])
+  }, [props.mode]) // use props.mode instead of props (too senitive), we pay attention only when mode changes
   
   const changeValue = (name, value) => {
     setFormItem(

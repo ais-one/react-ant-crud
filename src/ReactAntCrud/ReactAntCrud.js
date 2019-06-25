@@ -73,7 +73,7 @@ function ReactAndCrud(props) {
     }
     doFetch()
     // return
-  }, [getRows, props.pageSize, props.position]) // only on mount
+  }, [props.pageSize, props.position]) // only on mount, getRows will causes problems
   
 
   const getRow = async (id) => {
