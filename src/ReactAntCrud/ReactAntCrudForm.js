@@ -37,7 +37,7 @@ const FileUpload = () => {
     // };
     const url = 'https://www.mocky.io/v2/5cc8019d300000980a055e76'
     try {
-      const rv = await fetch(url, {
+      await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         // mode: 'cors', // no-cors, cors, *same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -112,7 +112,7 @@ function ReactAndCrudForm(props) {
     }))
     // console.log(formFields)
     setFormItem(_formFields)
-  }, [props.mode]) // use props.mode instead of props (too senitive), we pay attention only when mode changes
+  }, [props.mode]) // props.mode, use props.mode instead of props (too senitive), we pay attention only when mode changes
   
   const changeValue = (name, value) => {
     setFormItem(

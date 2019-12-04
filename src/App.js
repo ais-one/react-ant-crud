@@ -31,18 +31,24 @@ function useInterval(callback, delay) {
 }
 
 function App() {
-  let [clock, setClock] = useState(new Date())
+  const makeTimeString = (dateObj) => new Intl.DateTimeFormat('default', {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  }).format(dateObj)
+
+
+  let [clock, setClock] = useState(makeTimeString(new Date()))
 
   useInterval(() => {
     // Your custom logic here
     const newDate = new Date()
-    console.log('clock set...' + newDate.toISOString())
-    setClock(newDate)
-  }, 10000);
+    setClock(makeTimeString(newDate))
+  }, 10000)
 
   return (
     <Layout className="App">
-      <Header style={{ background: '#fff', padding: 4 }}>{clock.toISOString()}</Header>
+      <Header style={{ background: '#eee', paddingLeft: 18, fontWeight: 600 }}>{clock}</Header>
       <Content>
         <ReactAntCrud {...sample} />
       </Content>
