@@ -41,7 +41,6 @@ function App() {
   let [clock, setClock] = useState(makeTimeString(new Date()))
 
   useInterval(() => {
-    // Your custom logic here
     const newDate = new Date()
     setClock(makeTimeString(newDate))
   }, 10000)
